@@ -1,4 +1,4 @@
-import { FaBriefcase, FaMapMarkerAlt, FaCalendar } from 'react-icons/fa';
+import { FaMapMarkerAlt, FaCalendar } from 'react-icons/fa';
 
 interface ExperienceProps {
   title: string;

@@ -91,8 +91,7 @@ interface ProfileData {
 export function getProfileData(): ProfileData {
   const fullPath = path.join(process.cwd(), 'profile.md');
   const fileContents = fs.readFileSync(fullPath, 'utf8');
-  const { content } = matter(fileContents);
-  const lines = content.split('\n');
+  matter(fileContents); // Just to parse the file, we don't need the content
 
   const profileData: ProfileData = {
     name: 'Nithesh K',
