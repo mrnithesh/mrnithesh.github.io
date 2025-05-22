@@ -5,6 +5,38 @@ document.addEventListener('DOMContentLoaded', function() {
         currentYearSpan.textContent = new Date().getFullYear();
     }
 
+    // Mobile Menu Toggle
+    const mobileMenuBtn = document.querySelector('.mobile-menu-btn');
+    const navMenu = document.querySelector('#navbar ul');
+    
+    if (mobileMenuBtn && navMenu) {
+        mobileMenuBtn.addEventListener('click', function() {
+            navMenu.classList.toggle('show');
+            // Change icon based on menu state
+            const icon = this.querySelector('i');
+            if (navMenu.classList.contains('show')) {
+                icon.classList.remove('fa-bars');
+                icon.classList.add('fa-times');
+            } else {
+                icon.classList.remove('fa-times');
+                icon.classList.add('fa-bars');
+            }
+        });
+        
+        // Close mobile menu when a link is clicked
+        const navLinks = document.querySelectorAll('#navbar ul li a');
+        navLinks.forEach(link => {
+            link.addEventListener('click', function() {
+                if (window.innerWidth <= 768) {
+                    navMenu.classList.remove('show');
+                    const icon = mobileMenuBtn.querySelector('i');
+                    icon.classList.remove('fa-times');
+                    icon.classList.add('fa-bars');
+                }
+            });
+        });
+    }
+
     // Back to Top Button
     const backToTopBtn = document.getElementById('backToTopBtn');
 
@@ -79,4 +111,30 @@ document.addEventListener('DOMContentLoaded', function() {
         window.addEventListener('scroll', changeActiveLink);
     }
 
+    // Add animation to cards when they come into view
+    const animateOnScroll = function() {
+        const cards = document.querySelectorAll('.card');
+        
+        cards.forEach(card => {
+            const cardPosition = card.getBoundingClientRect();
+            // Check if card is in viewport
+            if(cardPosition.top < window.innerHeight - 100) {
+                card.style.opacity = "1";
+                card.style.transform = "translateY(0)";
+            }
+        });
+    };
+
+    // Initialize card animations
+    const cards = document.querySelectorAll('.card');
+    cards.forEach(card => {
+        card.style.opacity = "0";
+        card.style.transform = "translateY(20px)";
+        card.style.transition = "opacity 0.5s ease, transform 0.5s ease";
+    });
+    
+    // Run on scroll
+    window.addEventListener('scroll', animateOnScroll);
+    // Run once on page load
+    animateOnScroll();
 });
